@@ -1,7 +1,7 @@
 import "bootstrap-css";
 import "../App.css";
 import { PersonList } from "./personList/personList";
-import { Redirect, Route, Router, Switch } from "react-router";
+import { Redirect, Route, Switch } from "react-router";
 import FilmList from "./filmList/filmList";
 import Main from "./main/main";
 import FilmInfoPage from "./filmList/filmInfo/filmInfoPage";
@@ -29,7 +29,7 @@ export function App() {
         )}
       />
       <Route path="/filmInfo" component={FilmInfoPage} />
-        <Route path="/personInfo" component={PersonInfo} />
+      <Route path="/personInfo" component={PersonInfo} />
       <Redirect from="/" to="/Main" />
     </Switch>
   );

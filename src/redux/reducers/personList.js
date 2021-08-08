@@ -2,14 +2,13 @@ const defaultState = {
   data: [],
   inputValue: "",
   currentPersonInfo: "",
-  showList : ""
+  showList: "",
 };
 
 const GET_DATA = "GET_DATA";
 const GET_INPUT = "GET_INPUT";
 const GET_INFO = "GET_INFO";
-const SHOW_EPISODES = "SHOW_EPISODES"
-
+const SHOW_EPISODES = "SHOW_EPISODES";
 
 export const dataReducer = (state = defaultState, action) => {
   switch (action.type) {

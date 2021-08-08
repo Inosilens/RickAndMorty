@@ -1,22 +1,21 @@
-.content__container{
-    border: 2px solid #5397e5;
-    padding: 20px;
-    margin:10px;
-    width: 400px;
+.content__container {
+  border: 2px solid #5397e5;
+  padding: 20px;
+  margin: 10px;
+  width: 400px;
+  background: rgba(0, 0, 0, 0.23);
 }
-ul{
-    margin: 0;
-    padding: 4px;
+ul {
+  margin: 0;
+  padding: 4px;
 }
-li{
-    display: inline;
-    margin-right: 5px;
-    padding: 3px;
-
+li {
+  display: inline;
+  margin-right: 5px;
+  padding: 3px;
 }
 
-
-.active{
-    text-decoration: none;
-    border: 1px solid #6e80dc;
+.active {
+  text-decoration: none;
+  border: 1px solid #6e80dc;
 }

@@ -8,10 +8,13 @@ import {
 } from "../../redux/reducers/pagination";
 import ReactPaginate from "react-paginate";
 import LinksNav from "../navLinks/linksNav";
-import {getDataFilmInfoAction, getDataFilmsAction} from "../../redux/reducers/filmList";
+import {
+  getDataFilmInfoAction,
+  getDataFilmsAction,
+} from "../../redux/reducers/filmList";
 import { Link } from "react-router-dom";
 
-function FilmList(props) {
+function FilmList() {
   const dataFilms = useSelector((state) => state.data.data);
   const CURRENT_PAGE = useSelector((state) => state.pagination.currentPage);
   const ALL_PAGES = useSelector((state) => state.pagination.allPages);
@@ -31,9 +34,9 @@ function FilmList(props) {
     return DISPATCH(changePageAction(data.selected + 1));
   };
 
-  const getMoreInfo = (film) =>{
-      DISPATCH(getDataFilmInfoAction(film))
-  }
+  const getMoreInfo = (film) => {
+    DISPATCH(getDataFilmInfoAction(film));
+  };
 
   return (
     <div className=" justify-content-between d-flex flex-column align-items-center">
@@ -41,7 +44,11 @@ function FilmList(props) {
       <div className="d-flex flex-row row justify-content-between p-5">
         {dataFilms.map((film, index) => (
           <Link to={"/filmInfo"}>
-            <div onClick={()=>getMoreInfo(film)} className="content__container " key={index}>
+            <div
+              onClick={() => getMoreInfo(film)}
+              className="content__container "
+              key={index}
+            >
               <h2>{film.name}</h2>
               <h3>{film.episode}</h3>
             </div>
