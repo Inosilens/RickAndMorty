@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "bootstrap": "^5.1.0",
     "debounce": "^1.2.1",
     "prettier": "^2.3.2",
     "react-paginate": "^7.1.3",
@@ -41,8 +42,12 @@
     ]
   },
   "devDependencies": {
+    "@popperjs/core": "^2.9.3",
+    "bootstrap-css": "^4.0.0-alpha.5",
     "react": "0.0.0-experimental-b9934d6db-20210805",
     "react-dom": "0.0.0-experimental-b9934d6db-20210805",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3"
   }
 }

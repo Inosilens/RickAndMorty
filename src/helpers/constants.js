@@ -1,2 +1,2 @@
 
-export const SEARCH_URL = "?name="
+export const SEARCH_URL = "&name="

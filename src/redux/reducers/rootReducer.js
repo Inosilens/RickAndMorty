@@ -1,9 +1,11 @@
 import {combineReducers} from "redux";
-import {dataReducer} from "./dataList";
+import {dataReducer} from "./personList";
 import {paginationReducer} from "./pagination";
+import {dataFilmsReducer} from "./filmList";
 
 
 export const rootReducer = combineReducers({
    data: dataReducer,
-   pagination:paginationReducer
+   pagination:paginationReducer,
+   films : dataFilmsReducer
 })
