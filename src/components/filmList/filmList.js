@@ -5,8 +5,7 @@ import "./filmList.css";
 import {
     changePageAction,
     getAllPagesAction,
-}
-from "../../actions/pagination";
+} from "../../actions/pagination";
 import ReactPaginate from "react-paginate";
 import LinksNav from "../navLinks/linksNav";
 import {
@@ -37,8 +36,9 @@ function FilmList() {
     };
 
     const getMoreInfo = (film) => {
-        DISPATCH(changeDrop([]))
+        DISPATCH(DISPATCH(changeDrop([])))
         DISPATCH(getDataFilmInfoAction(film))
+        ;
     };
 
     return (
@@ -46,7 +46,7 @@ function FilmList() {
             <LinksNav/>
             <div className="d-flex flex-row row justify-content-between p-5">
                 {FILMS_LIST.map((film, index) => (
-                    <Link  key={index} to={"/filmInfo"}>
+                    <Link key={index} to={"/filmInfo"}>
                         <div
                             onClick={() => getMoreInfo(film)}
                             className="content__container "

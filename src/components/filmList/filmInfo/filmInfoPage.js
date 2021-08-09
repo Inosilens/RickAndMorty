@@ -38,7 +38,7 @@ function FilmInfoPage() {
                 <h3> Episode : {DATA_FILM_INFO.episode}</h3>
                 {DATA_FILM_INFO.characters.length ? <Link to={"/personInfo"}>
 
-                        <h3 >Characters : {DATA_FILM_INFO.characters.length}</h3>
+                        <h3>Characters : {DATA_FILM_INFO.characters.length}</h3>
 
                     </Link> :
                     null
