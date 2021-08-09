@@ -3,8 +3,9 @@ import ReactDOM from "react-dom";
 import App from "./components/App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import { store } from "./redux/store/store";
+import { store } from "./store/store";
 import { BrowserRouter } from "react-router-dom";
+import "bootstrap";
 import "./index.css";
 
 const container = document.getElementById("root");

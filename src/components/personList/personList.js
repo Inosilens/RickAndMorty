@@ -2,11 +2,11 @@ import React, {useEffect, useMemo} from "react";
 import ReactPaginate from "react-paginate";
 import getAllData from "../../services/getAllData";
 import {SEARCH_URL} from "../../helpers/constants";
-import {getDataAction, getInfoFilm, getInfoPerson, getInputAction} from "../../redux/reducers/personList";
+import {changeDrop, getDataAction, getInfoPerson, getInputAction} from "../../actions/personList";
 import {
     changePageAction,
     getAllPagesAction,
-} from "../../redux/reducers/pagination";
+} from "../../actions/pagination";
 import {useDispatch, useSelector} from "react-redux";
 import debounce from "debounce";
 import HeaderList from "./headerList";
@@ -16,7 +16,7 @@ import "./personList.css"
 
 export function PersonList({person}) {
     const PERSON = useSelector((state) => state.data.data);
-    const VALUE = useSelector((state) => state.data.inputValue);
+    const INPUT_VALUE = useSelector((state) => state.data.inputValue);
     const CURRENT_PAGE = useSelector((state) => state.pagination.currentPage);
     const ALL_PAGES = useSelector((state) => state.pagination.allPages);
     const DISPATCH = useDispatch();
@@ -24,8 +24,8 @@ export function PersonList({person}) {
     useEffect(() => {
         getAllData(
             `https://rickandmortyapi.com/api/character/${
-                VALUE
-                    ? `?page=${CURRENT_PAGE + SEARCH_URL + VALUE}`
+                INPUT_VALUE
+                    ? `?page=${CURRENT_PAGE + SEARCH_URL + INPUT_VALUE}`
                     : `?page=${CURRENT_PAGE}`
             }`
         )
@@ -39,7 +39,7 @@ export function PersonList({person}) {
                 return DISPATCH(getInputAction(""))
 
             });
-    }, [VALUE, CURRENT_PAGE]);
+    }, [INPUT_VALUE, CURRENT_PAGE]);
 
     const changeInput = (e) => {
         return DISPATCH(getInputAction(e.target.value));
@@ -54,6 +54,7 @@ export function PersonList({person}) {
 
     const getInfoOnPerson = (person) => {
         DISPATCH(getInfoPerson(person))
+        DISPATCH(DISPATCH(changeDrop([])))
     }
     return (
         <div className="container d-flex flex-column  align-items-center">

@@ -5,7 +5,8 @@ const defaultState = {
 
 const GET_DATA_FILMS = "GET_DATA";
 const GET_INFO_FILM = "GET_INFO_FILM";
-const SET_HEROES_IN_EPISODE = "SET_HEROES_IN_EPISODE"
+
+
 export const dataFilmsReducer = (state = defaultState, action) => {
   switch (action.type) {
     case GET_DATA_FILMS:

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { changePageAction } from "../../redux/reducers/pagination";
+import { changePageAction } from "../../actions/pagination";
 import { useDispatch } from "react-redux";
 
 function LinksNav() {

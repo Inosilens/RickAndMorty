@@ -19,7 +19,7 @@ export const dataReducer = (state = defaultState, action) => {
         case GET_INFO:
             return {...state, currentPersonInfo: action.payload};
         case activeDrop:
-            return {...state, activeDrop: [action.payload]};
+            return {...state, activeDrop: action.payload};
 
         default:
             return state;
