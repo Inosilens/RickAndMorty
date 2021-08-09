@@ -8,24 +8,28 @@ import getAllData from "../../../services/getAllData";
 import LinksNav from "../../navLinks/linksNav";
 
 function PersonInfo() {
-    const showList = useSelector((state) => state.data.showList);
+
     const person = useSelector((state) => state.data.currentPersonInfo);
+    const activeArray = useSelector(state => state.data.activeDrop)
     const DISPATCH = useDispatch();
 
 
     const getMoreInfo = (film) => {
         getAllData(film).then(r => {
-                DISPATCH(getDataFilmInfoAction(r))
+                DISPATCH(getDataFilmInfoAction(r)
+                )
+                DISPATCH(changeDrop())
             }
         )
 
     };
 
 
-    const showEpisodes = () => {
-        showList ?
-            DISPATCH(changeDrop("")) :
-            DISPATCH(changeDrop(true));
+    const showEpisodes = (id) => {
+
+        return DISPATCH(changeDrop(id))
+
+
     };
     if (!person) {
 
@@ -55,8 +59,8 @@ function PersonInfo() {
                                     <h4>Species : {person.species}</h4>
                                     <h4> Home World : {person.origin.name}</h4>
                                     <div
-                                        onClick={showEpisodes}
-                                        className={showList === true ? "dropdown show" : "dropdown"}
+                                        onClick={() => showEpisodes(person.id)}
+                                        className={person.id === activeArray[0] ? "dropdown show" : "dropdown "}
                                     >
                                         <a
                                             className="btn btn-secondary dropdown-toggle"
@@ -103,8 +107,8 @@ function PersonInfo() {
                             <h4>Species : {person.species}</h4>
                             <h4> Home World : {person.origin.name}</h4>
                             <div
-                                onClick={showEpisodes}
-                                className={showList === true ? "dropdown show" : "dropdown"}
+                                onClick={() => showEpisodes(person.id)}
+                                className={person.id === activeArray[0] ? "dropdown show" : "dropdown "}
                             >
                                 <a
                                     className="btn btn-secondary dropdown-toggle"
@@ -122,7 +126,7 @@ function PersonInfo() {
                                     {person.episode.map((item) => (
                                         <Link to={"/filmInfo"}>
                                             <li onClick={() => getMoreInfo(item)} className="dropdown-item" href="#">
-                                                Episod : {item.substr(40, 2)}
+                                                Episode: {item.substr(40, 2)}
                                             </li>
                                         </Link>
                                     ))}
