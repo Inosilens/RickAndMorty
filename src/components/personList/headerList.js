@@ -7,7 +7,7 @@ function HeaderList({changeInput}) {
             onChange={changeInput}
             placeholder="search person"
         />
-            <button>Clear</button></div>
+        </div>
     );
 }
 
