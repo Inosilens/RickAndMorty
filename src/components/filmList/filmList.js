@@ -5,15 +5,15 @@ import "./filmList.css";
 import {
     changePageAction,
     getAllPagesAction,
-} from "../../actions/pagination";
+} from "../../reducers/pagination";
 import ReactPaginate from "react-paginate";
 import LinksNav from "../navLinks/linksNav";
 import {
     getDataFilmInfoAction,
     getDataFilmsAction,
-} from "../../actions/filmList";
+} from "../../reducers/filmList";
 import {Link} from "react-router-dom";
-import {changeDrop} from "../../actions/personList";
+import {changeDrop} from "../../reducers/personList";
 
 function FilmList() {
     const FILMS_LIST = useSelector((state) => state.data.data);

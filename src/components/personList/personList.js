@@ -2,11 +2,11 @@ import React, {useEffect, useMemo} from "react";
 import ReactPaginate from "react-paginate";
 import getAllData from "../../services/getAllData";
 import {SEARCH_URL} from "../../helpers/constants";
-import {changeDrop, getDataAction, getInfoPerson, getInputAction} from "../../actions/personList";
+import {changeDrop, getDataAction, getInfoPerson, getInputAction} from "../../reducers/personList";
 import {
     changePageAction,
     getAllPagesAction,
-} from "../../actions/pagination";
+} from "../../reducers/pagination";
 import {useDispatch, useSelector} from "react-redux";
 import debounce from "debounce";
 import HeaderList from "./headerList";

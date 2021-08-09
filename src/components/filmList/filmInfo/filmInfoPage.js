@@ -4,8 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import LinksNav from "../../navLinks/linksNav";
 import {Link} from "react-router-dom";
 import getAllData from "../../../services/getAllData";
-import {getInfoPerson} from "../../../actions/personList";
-import {getDataFilmInfoAction} from "../../../actions/filmList";
+import {getInfoPerson} from "../../../reducers/personList";
+import {getDataFilmInfoAction} from "../../../reducers/filmList";
 
 function FilmInfoPage() {
     const DATA_FILM_INFO = useSelector((state) => state.films.infoFilmsData);

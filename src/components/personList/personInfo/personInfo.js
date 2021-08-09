@@ -1,8 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {changeDrop} from "../../../actions/personList";
-import {getDataFilmInfoAction} from "../../../actions/filmList";
+import {changeDrop} from "../../../reducers/personList";
+import {getDataFilmInfoAction} from "../../../reducers/filmList";
 import getAllData from "../../../services/getAllData";
 import LinksNav from "../../navLinks/linksNav";
 import "bootstrap"
@@ -58,7 +58,7 @@ function PersonInfo() {
                                     <img src={person.image} alt=""/>
                                 </div>
                                 <div className="d-flex flex-column justify-content-between align-items-center">
-                                    <h3> Name :{person.name}</h3>
+                                    <h3> {person.name}</h3>
                                     <p>Gender : {person.gender}</p>
                                     <p>Status : {person.status}</p>
                                     <p>Species : {person.species}</p>
