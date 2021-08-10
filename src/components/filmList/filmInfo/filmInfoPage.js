@@ -15,18 +15,20 @@ function FilmInfoPage() {
     const loader = useSelector(state => state.data.loading)
     const ARRAY_ON_NAMES = []
 
-    useEffect(() => {
-            if (!loader) {
-                getAllPersonsInEpisode(dataFilms.characters.length ? dataFilms.characters : 0)
-            }
-        }
-        , [])
+     useEffect(() => {
+             if(!loader) {
+                 getAllPersonsInEpisode(dataFilms.characters)
+             }
+
+         }
+      , [loader])
 
     const getAllPersonsInEpisode = (persons) => {
         for (let i = 0; i < persons.length; i++) {
             getAllPersonList(persons[i]).then(r => ARRAY_ON_NAMES.push(r))
         }
         dispatch(getInfoPerson(ARRAY_ON_NAMES))
+
     }
 
 
@@ -42,7 +44,7 @@ function FilmInfoPage() {
                     <h3> Episode : {dataFilms.episode}</h3>
                     {dataFilms.characters.length ?
                         <Link to={"/personInfo"}>
-                            <h3>Characters : {dataFilms.characters.length}</h3>
+                            <h3 onClick={()=>getAllPersonsInEpisode((dataFilms.characters))}>Characters : {dataFilms.characters.length}</h3>
                         </Link> :
                         null
                     }
