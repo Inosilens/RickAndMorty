@@ -1,8 +1,8 @@
 import React, {useEffect, useMemo} from "react";
 import ReactPaginate from "react-paginate";
-import getAllData from "../../services/getAllData";
+import getPersonList from "../../services/getPersonList";
 import {SEARCH_URL} from "../../helpers/constants";
-import {changeDrop, getDataAction, getInfoPerson, getInputAction} from "../../reducers/personList";
+import {changeDrop, getDataAction, getInfoPerson, getInputAction, setLoadingAction} from "../../reducers/personList";
 import {
     changePageAction,
     getAllPagesAction,
@@ -13,81 +13,104 @@ import HeaderList from "./headerList";
 import LinksNav from "../navLinks/linksNav";
 import {Link} from "react-router-dom";
 import "./personList.css"
+import {getResultOfSearch} from "../../services/getResultOfSearch";
+import Loader from "../loader/loader";
 
-export function PersonList({person}) {
-    const PERSON = useSelector((state) => state.data.data);
-    const INPUT_VALUE = useSelector((state) => state.data.inputValue);
-    const CURRENT_PAGE = useSelector((state) => state.pagination.currentPage);
-    const ALL_PAGES = useSelector((state) => state.pagination.allPages);
-    const DISPATCH = useDispatch();
+export function PersonList({}) {
+    const listOfPersons = useSelector((state) => state.data.data);
+    const searchValue = useSelector((state) => state.data.inputValue);
+    const currentPage = useSelector((state) => state.pagination.currentPage);
+    const allPages = useSelector((state) => state.pagination.allPages);
+    const loader = useSelector(state => state.data.loading)
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        getAllData(
-            `https://rickandmortyapi.com/api/character/${
-                INPUT_VALUE
-                    ? `?page=${CURRENT_PAGE + SEARCH_URL + INPUT_VALUE}`
-                    : `?page=${CURRENT_PAGE}`
-            }`
-        )
-            .then((r) => {
-                DISPATCH(getDataAction(r.results));
-                DISPATCH(getAllPagesAction(r.info.pages));
-            })
-            .catch((eror) => {
-                console.log(eror);
-                alert("person not found")
-                return DISPATCH(getInputAction(""))
-
-            });
-    }, [INPUT_VALUE, CURRENT_PAGE]);
+        if (searchValue) {
+            dispatch(setLoadingAction(true))
+            getResultOfSearch(currentPage, SEARCH_URL, searchValue)
+                .then((r) => {
+                    dispatch(getDataAction(r.results));
+                    dispatch(getAllPagesAction(r.info.pages))
+                    dispatch(setLoadingAction(false));
+                })
+                .catch((eror) => {
+                    console.log(eror);
+                    alert("person not found")
+                    dispatch(setLoadingAction(false))
+                    return dispatch(getInputAction(""))
+                });
+        } else {
+            dispatch(setLoadingAction(true))
+            getPersonList(currentPage)
+                .then((r) => {
+                    dispatch(getDataAction(r.results));
+                    dispatch(getAllPagesAction(r.info.pages));
+                    dispatch(setLoadingAction(false))
+                })
+                .catch((eror) => {
+                    console.log(eror);
+                    alert("person not found")
+                    return dispatch(getInputAction(""))
+                });
+        }
+    }, [searchValue, currentPage]);
 
     const changeInput = (e) => {
-        return DISPATCH(getInputAction(e.target.value));
+        return dispatch(getInputAction(e.target.value));
     };
     const debouncingChangeInput = useMemo(() => {
         return debounce(changeInput, 400);
     }, []);
 
     const changePage = (data) => {
-        return DISPATCH(changePageAction(data.selected + 1));
+        return dispatch(changePageAction(data.selected + 1));
     };
 
     const getInfoOnPerson = (person) => {
-        DISPATCH(getInfoPerson(person))
-        DISPATCH(DISPATCH(changeDrop([])))
+        dispatch(setLoadingAction(true))
+        dispatch(getInfoPerson(person))
+        dispatch(changeDrop([]))
+        dispatch(setLoadingAction(false))
     }
-    return (
-        <div className="container d-flex flex-column  align-items-center">
-            <LinksNav/>
-            <HeaderList changeInput={debouncingChangeInput}/>
-            <div className="row d-flex justify-content-between mt-5">
-                {PERSON.map((item, index) => (
-                    <div className="person__cart d-flex flex-column p-2 m-2 text-center" key={index}>
-                        <div className="m-2 d-flex flex-column">
-                            {" "}
-                            <img src={item.image} width="300px" alt=""/>
-                            <h5>{item.name}</h5>
+    if (loader) {
+        return (
+            <Loader/>
+        )
+    } else {
+        return (
+            <div className="container d-flex flex-column  align-items-center">
+                <LinksNav/>
+                <HeaderList changeInput={debouncingChangeInput}/>
+                <div className="row d-flex justify-content-between mt-5">
+                    {listOfPersons.map((person, index) => (
+                        <div className="person__cart d-flex flex-column p-2 m-2 text-center" key={index}>
+                            <div className="m-2 d-flex flex-column">
+                                {" "}
+                                <img src={person.image} width="300px" alt=""/>
+                                <h5>{person.name}</h5>
+                            </div>
+                            <Link to={"/personInfo"}>
+                                <button className="btn btn-secondary" onClick={() => getInfoOnPerson(person)}>Get more
+                                    info on
+                                    person
+                                </button>
+                            </Link>
                         </div>
-                        <Link to={"/personInfo"}>
-                            <button className="btn btn-secondary" onClick={() => getInfoOnPerson(item)}>Get more info on
-                                person
-                            </button>
-                        </Link>
-                    </div>
-                ))}
+                    ))}
+                </div>
+                <ReactPaginate
+                    previousLabel={"previous"}
+                    nextLabel={"next"}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={allPages}
+                    marginPagesDisplayed={0}
+                    pageRangeDisplayed={6}
+                    onPageChange={changePage}
+                    containerClassName={"pagination"}
+                    activeClassName={"active"}
+                />
             </div>
-            <ReactPaginate
-                previousLabel={"previous"}
-                nextLabel={"next"}
-                breakLabel={"..."}
-                breakClassName={"break-me"}
-                pageCount={ALL_PAGES}
-                marginPagesDisplayed={0}
-                pageRangeDisplayed={6}
-                onPageChange={changePage}
-                containerClassName={"pagination"}
-                activeClassName={"active"}
-            />
-        </div>
-    );
+        );
+    }
 }

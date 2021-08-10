@@ -2,13 +2,15 @@ const defaultState = {
     data: [],
     inputValue: "",
     currentPersonInfo: "",
-    activeDrop : []
+    activeDrop : [],
+    loading : false
 };
 
 const GET_DATA = "GET_DATA";
 const GET_INPUT = "GET_INPUT";
 const GET_INFO = "GET_INFO";
-const activeDrop = "SHOW_EPISODES";
+const SET_ACTIVE_DROP = "SET_ACTIVE_DROP";
+const SET_LOADING = "SET_LOADING"
 
 export const dataReducer = (state = defaultState, action) => {
     switch (action.type) {
@@ -18,9 +20,10 @@ export const dataReducer = (state = defaultState, action) => {
             return {...state, inputValue: action.payload};
         case GET_INFO:
             return {...state, currentPersonInfo: action.payload};
-        case activeDrop:
+        case SET_ACTIVE_DROP:
             return {...state, activeDrop: action.payload};
-
+        case SET_LOADING :
+            return {...state, loading: action.payload}
         default:
             return state;
     }
@@ -41,6 +44,13 @@ export const getInfoPerson = (payload) => ({
 });
 
 export const changeDrop = (payload) => ({
-    type: activeDrop,
+    type: SET_ACTIVE_DROP,
     payload,
 });
+export const setLoadingAction = (payload) => ({
+    type: SET_LOADING,
+    payload,
+});
+
+
+

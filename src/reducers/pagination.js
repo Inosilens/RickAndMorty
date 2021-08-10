@@ -12,7 +12,6 @@ export const paginationReducer = (state = defaultState, action) => {
       return { ...state, currentPage: action.payload };
     case GET_ALL_PAGES:
       return { ...state, allPages: action.payload };
-
     default:
       return state;
   }
