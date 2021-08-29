@@ -12,7 +12,7 @@ function LinksNav() {
     return (
         <div>
             <nav>
-                <Link to={"/PersonList"}>
+                <Link to={"/Heroes"}>
                     <button
                         onClick={() => changeCurrentPage()}
                         className=" m-3 btn btn-secondary"
@@ -20,7 +20,7 @@ function LinksNav() {
                         Heroes
                     </button>
                 </Link>
-                <Link to={"/FilmList"}>
+                <Link to={"/Films"}>
                     <button
                         onClick={() => changeCurrentPage()}
                         className="btn btn-secondary"
